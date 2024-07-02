@@ -29,6 +29,19 @@ jobs:
       - name: Test with pytest
         run: |
           poetry run pytest
+      - name: Set status to failure if pytest fails
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: context.sha,
+              state: 'failure',
+              context: 'pytest',
+              description: 'Pytest tests failed'
+            })
 
   ruff:
     if: github.event_name == 'pull_request'
