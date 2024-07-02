@@ -26,13 +26,6 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install
-
-  pytest:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - name: Set up Poetry environment
-        run: source $GITHUB_ENV
       - name: Test with pytest
         run: |
           poetry run pytest
