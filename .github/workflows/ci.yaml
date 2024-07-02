@@ -7,7 +7,7 @@ on:
     branches: [main, develop]
 
 jobs:
-  setup:
+  setup-and-pytest:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 3
@@ -33,7 +33,6 @@ jobs:
   ruff:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
-    needs: setup
     steps:
       - uses: actions/checkout@v4
       - uses: chartboost/ruff-action@v1
